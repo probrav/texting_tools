@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Function to find iterations in the text
+function find_iterations {
+    local text="$1"
+    local length=${#text}
+
+    for (( i=1; i<=length/2; i++ )); do
+        local pattern="${text:0:i}"
+        local count=$(grep -o "$pattern" <<< "$text" | wc -l)
+        
+        if (( count >= 2 )); then
+            echo "Found iteration: $pattern"
+        fi
+    done
+}
+
+# Main script
+echo "Enter a text to find iterations:"
+read input_text
+
+find_iterations "$input_text"
